@@ -6,8 +6,6 @@ class Child(models.Model):
 	name = models.CharField(max_length = 256);
 	age = models.IntegerField();
 
-
-
 	def toDictionary(self):
 		return {
 			"name": self.name,
@@ -15,23 +13,16 @@ class Child(models.Model):
 			"id": self.id
 		};
 
-
-
 	def __unicode__(self):
 		return "%s: %d" % (self.name, self.age);
-
-
 
 	class Meta(object):
 		verbose_name_plural = "Children";
 
 
 
-
 class NumericalQuestion(models.Model):
 	question = models.CharField(max_length = 200);
-
-
 
 	def toDictionary(self):
 		return {
@@ -65,7 +56,5 @@ class QuestionOrder(models.Model):
 	order = models.IntegerField(unique = True);
 	question_number = models.IntegerField();
 
-
-
 	def __unicode__(self):
-		return "%s %d %d" % (type, order, question_number);
+		return "%s %d %d" % (self.type, self.order, self.question_number);

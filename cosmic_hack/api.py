@@ -1,8 +1,13 @@
 import json;
 from django.http import HttpResponse, Http404, HttpResponseRedirect;
-from cosmic_hack.models import NumericalQuestion, QuestionOrder, NUMERICAL_TYPE, PICTORIAL_TYPE, NumericalQuestionAnswer;
+from cosmic_hack.models import NumericalQuestion, QuestionOrder, NUMERICAL_TYPE, PICTORIAL_TYPE, NumericalQuestionAnswer, Child;
 from django.views.generic.base import View;
 from django.utils.decorators import method_decorator;
+
+
+
+def getAnonymousChild():
+	return Child.objects.get(id = 1);
 
 
 
@@ -39,7 +44,7 @@ class GetAllQuestions(View):
 	@method_decorator(returnHttpJson)
 	def get(self, request):
 		questionOrder = QuestionOrder.objects.all().order_by("order");
-
+		print(questionOrder.query);
 		questions = [ ];
 
 		for questionOrderRow in questionOrder:
@@ -68,14 +73,44 @@ class PostNumericalQuestionAnswer(View):
 		child = None;
 
 		try:
-			child = request.POST["child"];
+			childId = request.POST["child"];
+			try:
+				child = Child.objects.get(id = childId);
+			except (Child.DoesNotExist):
+				raise Http404;
 		except:
-			pass;
+			child = getAnonymousChild();
 
-
-		if (child is not None):
-			NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
-		else:
-			NumericalQuestionAnswer.objects.create(question = question, answer = answer);
+		NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
 
 		return {"result": "ok"};
+
+
+
+class AddChild(View):
+	@method_decorator(returnHttpJson)
+	def post(self, request):
+		isAnonymous = request.POST["isAnonymous"];
+
+		child = None;
+
+		if (isAnonymous):
+			child = Child.objects.get(id = 1);
+		else:
+			name = request.POST["name"];
+			age = request.POST["age"];
+			child = Child.objects.create(name, age);
+
+		return {"child": child.toDictionary()};
+
+
+
+class GetChild(View):
+	@method_decorator(returnHttpJson)
+	def get(self, request, id):
+		child = None;
+		try:
+			child = getAnonymousChild();
+		except (Child.DoesNotExist):
+			raise Http404;
+		return {"child": child.toDictionary()};

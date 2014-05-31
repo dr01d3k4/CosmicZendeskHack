@@ -6,6 +6,8 @@ from cosmic_hack import views, api;
 urlpatterns = patterns("",
 	url(r"^$", views.Index.as_view(), name = "index"),
 
-	url(r"^get-all-questions/$", api.GetAllQuestions.as_view(), name = "get-all-questions"),
-	url(r"^post-numerical-question-answer/$", api.PostNumericalQuestionAnswer.as_view(), name = "post-numerical-question-answer")
+	url(r"^get-all-questions/$", api.GetAllQuestions.as_view()),
+	url(r"^post-numerical-question-answer/$", api.PostNumericalQuestionAnswer.as_view()),
+	url(r"^add-child/$", api.AddChild.as_view()),
+	url(r"^get-child/(?P<id>\d+)/$", api.GetChild.as_view())
 );

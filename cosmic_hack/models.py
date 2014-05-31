@@ -14,7 +14,7 @@ class Child(models.Model):
 		};
 
 	def __unicode__(self):
-		return "%s: %d" % (self.name, self.age);
+		return "%s: %d year%s" % (self.name, self.age, "s" if year != 1 else "");
 
 	class Meta(object):
 		verbose_name_plural = "Children";

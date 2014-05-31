@@ -35,4 +35,4 @@ def returnHttpJson(viewFunction):
 
 @returnHttpJson
 def getQuestions(request):
-	return [question for question in NumericalQuestion.objects.all()];
+	return [question.toDictionary() for question in NumericalQuestion.objects.all()];

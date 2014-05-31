@@ -19,6 +19,14 @@ class NumericalQuestion(models.Model):
 
 
 
+	def toDictionary(self):
+		return {
+			"id": self.id,
+			"question": self.question
+		};
+
+
+
 
 class NumericalQuestionAnswer(models.Model):
 	child = models.ForeignKey("Child");

@@ -27,8 +27,8 @@
         <title>Hello World</title>
         <style type='text/css'>
             #simple_sketch {
-                height: 1000px;
-                width: 1000px;
+                height: 400%;
+                width: 100%;
                 border: 0.25px solid #000000;
             }
         </style>
@@ -52,8 +52,8 @@
                 $('#simple_sketch').sketch();
             });
             var element = document.getElementById('simple_sketch');
-            var hammertime = Hammer(element).on("gesture", function(event) {
-                $('#temp').html(event.gesture.direction);
+            var hammertime = Hammer(element).on("drag", function(event) {
+                $('#temp').html(event.gesture.interimDirection);
             });
             </script>
         

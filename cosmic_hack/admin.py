@@ -22,7 +22,7 @@ admin.site.register(NumericalQuestion, NumericalQuestionAdmin);
 
 
 class NumericalQuestionAnswerAdmin(admin.ModelAdmin):
-	list_display = ("id", "child");
+	list_display = ("id", "child", "answer", "question");
 
 admin.site.register(NumericalQuestionAnswer, NumericalQuestionAnswerAdmin);
 

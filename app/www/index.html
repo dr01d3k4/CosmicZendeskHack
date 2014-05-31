@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<div id='question'>How much did you like the ward?</div>
-		<!--><canvas id="simple_sketch"></canvas><!-->
+		<!--<canvas id="simple_sketch"></canvas>-->
 		<script type='text/javascript' src='js/jquery.js'></script>
 		<script type='text/javascript' src='js/hammer.js'></script>
 		<script type='text/javascript' src='js/sketch.js'></script>
@@ -98,12 +98,12 @@
 				alert(direction);
 
 				$.ajax({
-					type: "POST",
-					url: "/cosmic_hack/post-numerical-question-answer", // http://dr01d3k4.pythonanywhere.com
-					data: {
-						question: questionNo,
-						answer: returnValue
-					}
+					type: "GET",
+					url: "/cosmic_hack/post-numerical-question-answer/" + questionNo + "/" + returnValue + "/", // http://dr01d3k4.pythonanywhere.com
+					// data: {
+					// 	question: questionNo,
+					// 	answer: returnValue
+					// }
 				}).done(function (data) {
 					alert(data);
 				});

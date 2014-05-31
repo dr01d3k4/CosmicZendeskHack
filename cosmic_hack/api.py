@@ -77,12 +77,10 @@ class GetAllQuestions(View):
 
 class PostNumericalQuestionAnswer(View):
 	@method_decorator(returnHttpJson)
-	def post(self, request):
+	def get(self, request, questionId, answer):
 		print("Hello!");
 		# print(request);
-
-		questionId = request.POST["question"];
-		answer = request.POST["answer"];
+		
 		child = None;
 
 		question = NumericalQuestion.objects.get(id = questionId);

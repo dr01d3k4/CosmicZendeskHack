@@ -1,8 +1,10 @@
 import json;
 from django.http import HttpResponse, Http404, HttpResponseRedirect;
 from cosmic_hack.models import NumericalQuestion, QuestionOrder, NUMERICAL_TYPE, PICTORIAL_TYPE, NumericalQuestionAnswer, Child;
+from django.shortcuts import render;
 from django.views.generic.base import View;
 from django.utils.decorators import method_decorator;
+
 
 
 
@@ -65,10 +67,11 @@ class GetAllQuestions(View):
 
 
 
-@returnHttpJson
+# @returnHttpJson
 def postNumericalQuestionAnswer(request):
 	print("Hello");
-	return {"result": "ok"};
+	# return {"result": "ok"};
+	return render(request, "www/index.html", { });
 
 
 

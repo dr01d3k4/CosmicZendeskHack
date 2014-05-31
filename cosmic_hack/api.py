@@ -101,6 +101,8 @@ class PostNumericalQuestionAnswer(View):
 		# except:
 		# 	child = getAnonymousChild();
 
+		print(child);
+
 		NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
 
 		return {"result": "ok"};

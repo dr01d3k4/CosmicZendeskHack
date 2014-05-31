@@ -34,7 +34,7 @@ DEBUG = True;
 
 TEMPLATE_DEBUG = True;
 
-ALLOWED_HOSTS = [".dylanmaryk.com"];
+ALLOWED_HOSTS = [".dylanmaryk.com", "dr01d3k4.pythonanywhere.com"];
 
 
 # Application definition

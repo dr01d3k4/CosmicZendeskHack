@@ -68,9 +68,15 @@ class GetAllQuestions(View):
 class PostNumericalQuestionAnswer(View):
 	@method_decorator(returnHttpJson)
 	def post(self, request):
+		print("Hello!");
+		print(request);
+
 		question = request.POST["question"];
 		answer = request.POST["answer"];
 		child = None;
+
+		print(question);
+		print(answer);
 
 		try:
 			childId = request.POST["child"];

@@ -71,7 +71,7 @@ class GetAllQuestions(View):
 def postNumericalQuestionAnswer(request):
 	print("Hello");
 	# return {"result": "ok"};
-	return render(request, "www/index.html", { });
+	return HttpResponse("Plain text", content_type = "text/plain");
 
 
 

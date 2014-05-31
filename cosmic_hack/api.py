@@ -1,8 +1,10 @@
 import json;
 from django.http import HttpResponse, Http404, HttpResponseRedirect;
 from cosmic_hack.models import NumericalQuestion, QuestionOrder, NUMERICAL_TYPE, PICTORIAL_TYPE, NumericalQuestionAnswer, Child;
+from django.shortcuts import render;
 from django.views.generic.base import View;
 from django.utils.decorators import method_decorator;
+
 
 
 
@@ -65,25 +67,39 @@ class GetAllQuestions(View):
 
 
 
-class PostNumericalQuestionAnswer(View):
-	@method_decorator(returnHttpJson)
-	def post(self, request):
-		question = request.POST["question"];
-		answer = request.POST["answer"];
-		child = None;
+# @returnHttpJson
+def postNumericalQuestionAnswer(request):
+	print("Hello");
+	# return {"result": "ok"};
+	return HttpResponse("Plain text", content_type = "text/plain");
 
-		try:
-			childId = request.POST["child"];
-			try:
-				child = Child.objects.get(id = childId);
-			except (Child.DoesNotExist):
-				raise Http404;
-		except:
-			child = getAnonymousChild();
 
-		NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
 
-		return {"result": "ok"};
+# class PostNumericalQuestionAnswer(View):
+# 	@method_decorator(returnHttpJson)
+# 	def post(self, request):
+# 		# print("Hello!");
+# 		# print(request);
+
+# 		# question = request.POST["question"];
+# 		# answer = request.POST["answer"];
+# 		# child = None;
+
+# 		# print(question);
+# 		# print(answer);
+
+# 		# try:
+# 		# 	childId = request.POST["child"];
+# 		# 	try:
+# 		# 		child = Child.objects.get(id = childId);
+# 		# 	except (Child.DoesNotExist):
+# 		# 		raise Http404;
+# 		# except:
+# 		# 	child = getAnonymousChild();
+
+# 		# NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
+
+# 		return {"result": "ok"};
 
 
 

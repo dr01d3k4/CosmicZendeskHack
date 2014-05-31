@@ -25,6 +25,12 @@
                 font-family: "Helvetica Neue Thin";
                 display: none;
                 font-size: 35px;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
         </style>
     </head>
@@ -97,13 +103,19 @@
             var direction;
             var returnValue;
             var questionNo = 1;
-            Hammer($('#simple_sketch')).on("gesture", function(event) {
-                //$('#temp').html(event.gesture.direction);
-                if (event.gesture.direction == "up" || event.gesture.direction == "down") {
-                    direction = event.gesture.direction;
-                 }
+            var currentGesture;
+            var prevGesture;
+            Hammer(document).on("gesture", function(event) {
+                prevGesture = currentGesture;
+                currentGesture = event.gesture.direction;
+                if(prevGesture == "up" && (currentGesture == "left" || currentGesture == "right")) {
+                    direction = "up";
+                }
+                else if(prevGesture == "down" && (currentGesture == "left" || currentGesture == "right")) {
+                    direction = "down";
+                }
             });
-            Hammer($('#simple_sketch')).on("release", function(event) {
+            Hammer(document).on("release", function(event) {
                 if (direction == "up") {
                     returnValue = 1;
                 } else {

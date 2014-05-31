@@ -1,95 +1,113 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <title>Hello World</title>
-        <style type='text/css'>
-            #simple_sketch {
-                height: 400%;
-                width: 100%;
-                border: 0.25px solid #000000;
-            }
-            #question {
-                
-            }
-        </style>
-    </head>
-    <body>
-        <div id='question'>How much did you like the ward?</div>
-        <!--><canvas id="simple_sketch"></canvas><!-->
-        <script type='text/javascript' src='js/jquery.js'></script>
-        <script type='text/javascript' src='js/hammer.js'></script>
-        <script type='text/javascript' src='js/sketch.js'></script>
-        <script type='text/javascript' src='cordova.js'></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                /*$.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-all-questions', function(data) {
-                      // alert(data);
-                });*/
-            });
-            
-            function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-function sameOrigin(url) {
-    // test that a given url is a same-origin URL
-    // url could be relative or scheme relative or absolute
-    var host = document.location.host; // host + port
-    var protocol = document.location.protocol;
-    var sr_origin = '//' + host;
-    var origin = protocol + sr_origin;
-    // Allow absolute or scheme relative URLs to same origin
-    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-        // or any other URL that isn't scheme relative or absolute i.e relative.
-        !(/^(\/\/|http:|https:).*/.test(url));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-            // Send the token to same-origin, relative URLs only.
-            // Send the token only if the method warrants CSRF protection
-            // Using the CSRFToken value acquired earlier
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-            /*$(function() {
-                $('#simple_sketch').sketch();
-            });*/
-            var direction;
-            var returnValue;
-            var questionNo = 1;
-            Hammer(document).on("gesture", function(event) {
-                //$('#temp').html(event.gesture.direction);
-                if (event.gesture.direction == "up" || event.gesture.direction == "down") {
-                    direction = event.gesture.direction;
-                 }
-            });
-            Hammer(document).on("release", function(event) {
-                if (direction == "up") {
-                    returnValue = 1;
-                } else {
-                    returnValue = 0;
-                }
-                alert(direction);
-                /*$.post("http://dr01d3k4.pythonanywhere.com/cosmic_hack/post-numerical-question-answer", {question: questionNo, answer: returnValue}, function(data) {
-                    alert('Success, returned: ' + data);
-                });*/
-                $.ajax({
-                    type: "GET",
-                    url: "http://dr01d3k4.pythonanywhere.com/cosmic_hack/post-numerical-question-answer",
-                    data: {question: questionNo, answer: returnValue},
-                    success: function (dataCheck) {
-                        alert(dataCheck);
-                    }
-                });
-            });
-        </script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<title>Hello World</title>
+		<style type='text/css'>
+			#simple_sketch {
+				height: 400%;
+				width: 100%;
+				border: 0.25px solid #000000;
+			}
+			#question {
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id='question'>How much did you like the ward?</div>
+		<!--><canvas id="simple_sketch"></canvas><!-->
+		<script type='text/javascript' src='js/jquery.js'></script>
+		<script type='text/javascript' src='js/hammer.js'></script>
+		<script type='text/javascript' src='js/sketch.js'></script>
+		<script type='text/javascript' src='cordova.js'></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*$.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-all-questions', function(data) {
+					  // alert(data);
+				});*/
+			});
+
+			/* Django Post Requests */	
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						if (cookie.substring(0, name.length + 1) == (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			var csrftoken = getCookie('csrftoken');
+
+			function csrfSafeMethod(method) {
+				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
+
+			function sameOrigin(url) {
+				var host = document.location.host;
+				var protocol = document.location.protocol;
+				var sr_origin = '//' + host;
+				var origin = protocol + sr_origin;
+				return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+					(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+					!(/^(\/\/|http:|https:).*/.test(url));
+			}
+
+			$.ajaxSetup({
+				beforeSend: function(xhr, settings) {
+					if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+						xhr.setRequestHeader("X-CSRFToken", csrftoken);
+					}
+				}
+			});
+			/* End Django post requests */
+
+
+			/*$(function() {
+				$('#simple_sketch').sketch();
+			});*/
+
+			var direction;
+			var returnValue;
+			var questionNo = 1;
+
+			Hammer(document).on("gesture", function(event) {
+				//$('#temp').html(event.gesture.direction);
+				if (event.gesture.direction == "up" || event.gesture.direction == "down") {
+					direction = event.gesture.direction;
+				 }
+			});
+
+			Hammer(document).on("release", function(event) {
+				if (direction == "up") {
+					returnValue = 1;
+				} else {
+					returnValue = 0;
+				}
+
+				alert(direction);
+
+				$.ajax({
+					type: "POST",
+					url: "/cosmic_hack/post-numerical-question-answer", // http://dr01d3k4.pythonanywhere.com
+					data: {
+						question: questionNo,
+						answer: returnValue
+					}
+				}).done(function (data) {
+					alert(data);
+				});
+			});
+		</script>
+	</body>
 </html>

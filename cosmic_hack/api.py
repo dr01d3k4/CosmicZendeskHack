@@ -1,5 +1,6 @@
 import json;
 from django.http import HttpResponse, Http404, HttpResponseRedirect;
+from cosmic_hack.models import NumericalQuestion;
 
 
 
@@ -34,4 +35,4 @@ def returnHttpJson(viewFunction):
 
 @returnHttpJson
 def getQuestions(request):
-	return {"hello": "world"};
+	return [question for question in NumericalQuestion.objects.all()];

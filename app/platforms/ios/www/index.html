@@ -44,6 +44,7 @@
         <script type="text/javascript">
             //app.initialize();
             $(document).ready(function() {
+                alert("hi");
                 $.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/', function(data) {
                     $(".result").html(data);
                     alert("Load was performed.");

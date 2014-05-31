@@ -1,6 +1,8 @@
 import json;
 from django.http import HttpResponse, Http404, HttpResponseRedirect;
-from cosmic_hack.models import NumericalQuestion;
+from cosmic_hack.models import NumericalQuestion, QuestionOrder, NUMERICAL_TYPE, PICTORIAL_TYPE, NumericalQuestionAnswer;
+from django.views.generic.base import View;
+from django.utils.decorators import method_decorator;
 
 
 
@@ -33,6 +35,47 @@ def returnHttpJson(viewFunction):
 
 
 
-@returnHttpJson
-def getQuestions(request):
-	return [question.toDictionary() for question in NumericalQuestion.objects.all()];
+class GetAllQuestions(View):
+	@method_decorator(returnHttpJson)
+	def get(self, request):
+		questionOrder = QuestionOrder.objects.all().order_by("order");
+
+		questions = [ ];
+
+		for questionOrderRow in questionOrder:
+			question = None;
+
+			if (questionOrderRow.type == NUMERICAL_TYPE):
+				question = NumericalQuestion.objects.get(id = questionOrderRow.question_number);
+
+	 		# elif (questionOrderRow.type == PICTORIAL_TYPE):
+				# question = Picture.objects.get(id = questionOrderRow.question_number);
+
+			if (question is not None):
+				questionDictionary = question.toDictionary();
+				questionDictionary["order"] = questionOrderRow.order;
+				questions.append(questionDictionary);
+
+		return questions;
+
+
+
+class PostNumericalQuestionAnswer(View):
+	@method_decorator(returnHttpJson)
+	def post(self, request):
+		question = request.POST["question"];
+		answer = request.POST["answer"];
+		child = None;
+
+		try:
+			child = request.POST["child"];
+		except:
+			pass;
+
+
+		if (child is not None):
+			NumericalQuestionAnswer.objects.create(question = question, answer = answer, child = child);
+		else:
+			NumericalQuestionAnswer.objects.create(question = question, answer = answer);
+
+		return {"result": "ok"};

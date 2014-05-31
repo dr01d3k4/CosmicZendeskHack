@@ -38,7 +38,7 @@
         <div id='main'>
                 <div id='question'><center>How much did you like the ward?</center></div>
         </div>
-        <canvas id="simple_sketch"></canvas>
+        <!-- <canvas id="simple_sketch"></canvas> -->
         <script type='text/javascript' src='js/jquery.js'></script>
         <script type='text/javascript' src='js/hammer.js'></script>
         <script type='text/javascript' src='js/sketch.js'></script>
@@ -54,7 +54,7 @@
                     //$('#question').hide();
                     $('#question').animate({'margin-top':'20px'});
                 });
-                $('#simple_sketch').sketch();
+                // $('#simple_sketch').sketch();
             });
             
             
@@ -105,6 +105,7 @@
             var questionNo = 1;
             var currentGesture;
             var prevGesture;
+            // var element = document.getElementById('simple_sketch');
             Hammer(document).on("gesture", function(event) {
                 prevGesture = currentGesture;
                 currentGesture = event.gesture.direction;

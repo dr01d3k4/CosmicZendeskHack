@@ -8,6 +8,15 @@ class Child(models.Model):
 
 
 
+	def toDictionary(self):
+		return {
+			"name": self.name,
+			"age": self.age,
+			"id": self.id
+		};
+
+
+
 	def __unicode__(self):
 		return "%s: %d" % (self.name, self.age);
 
@@ -24,6 +33,10 @@ class NumericalQuestion(models.Model):
 			"id": self.id,
 			"question": self.question
 		};
+
+
+	def __unicode__(self):
+		return self.question;
 
 
 
@@ -47,3 +60,8 @@ class QuestionOrder(models.Model):
 	type = models.CharField(max_length = 3, choices = QUESTION_TYPE_CHOICE, default = NUMERICAL_TYPE);
 	order = models.IntegerField(unique = True);
 	question_number = models.IntegerField();
+
+
+
+	def __unicode__(self):
+		return "%s %d %d" % (type, order, question_number);

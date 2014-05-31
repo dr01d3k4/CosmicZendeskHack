@@ -94,7 +94,7 @@ USE_TZ = True;
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_PATH = os.path.join(PROJECT_PATH, "app/platforms/ios/www/");
+STATIC_PATH = os.path.join(PROJECT_PATH, "app/www/");
 JS_PATH = os.path.join(STATIC_PATH, "js");
 STATIC_URL = "/static/";
 STATICFILES_DIRS = (

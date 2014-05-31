@@ -25,7 +25,7 @@ def returnHttpJson(viewFunction):
 		if (isInteger(jsonObject)):
 			return HttpResponseRedirect("/");
 
-		jsonString = json.dumps(jsonObject);
+		jsonString = json.dumps(jsonObject, indent = 4);
 		return HttpResponse(jsonString, content_type = "application/json");
 
 	return innerFunction;

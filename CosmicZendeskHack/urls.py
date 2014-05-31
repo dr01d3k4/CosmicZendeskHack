@@ -17,3 +17,4 @@ urlpatterns = patterns("",
 import settings;
 if (settings.DEBUG):
 	urlpatterns += patterns("django.views.static", (r"media/(?P<path>.*)", "serve", {"document_root": settings.MEDIA_ROOT}), );
+	urlpatterns += patterns("django.views.static", (r"cosmic_hack/js/(?P<path>.*)", "serve", {"document_root": settings.JS_PATH}), );

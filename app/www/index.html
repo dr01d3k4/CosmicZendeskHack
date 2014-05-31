@@ -37,7 +37,7 @@
         <div class="app">
             <h1 id='temp'></h1>
         </div>
-        <canvas id="simple_sketch"></canvas>
+        <!--><canvas id="simple_sketch"></canvas><!-->
         <script type='text/javascript' src='js/jquery.js'></script>
         <script type='text/javascript' src='js/hammer.js'></script>
         <script type='text/javascript' src='js/sketch.js'></script>
@@ -48,12 +48,11 @@
                       // alert(data);
                 });
             });
-            $(function() {
+            /*$(function() {
                 $('#simple_sketch').sketch();
-            });
-            var element = document.getElementById('simple_sketch');
-            var hammertime = Hammer(element).on("drag", function(event) {
-                $('#temp').html(event.gesture.interimDirection);
+            });*/
+            var hammertime = Hammer(document).on("gesture", function(event) {
+                $('#temp').html(event.gesture.direction);
             });
             </script>
         

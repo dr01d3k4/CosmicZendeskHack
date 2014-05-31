@@ -43,7 +43,7 @@
         <script type='text/javascript' src='js/resemble.js'></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/', function(data) {
+                $.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-questions', function(data) {
                       // alert(data);
                 });
                 var diff = resemble("img/happy.png").compareTo("img/sad.png").ignoreColors().onComplete(function(data) {

@@ -1,71 +1,61 @@
 <!DOCTYPE html>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
 <html>
-<head>
-  <title>JS-ImageDiff Example</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="description" content="JavaScript imagediff utility using canvas for doing image diff in the browser." />
-  <script type="text/javascript" src="js/imagediff.js"></script>
-  <link rel="stylesheet" href="styles.css" type="text/css" />
-</head>
-<body>
-  <div id="content">
-    <h1>JS-ImageDiff Example:</h1>
-    <p>See more examples at <a href="http://humblesoftware.github.com/js-imagediff/">humblesoftware.github.com/js-imagediff</a>.
-   Sample images from the <a href="https://github.com/cameronmcefee/Image-Diff-View-Modes/commit/8e95f70c9c47168305970e91021072673d7cdad8">github imagediff demo</a>.</p>
-    <div id="demo">
-      <img id="1-a" alt="example image one" src="1_normal_a.jpg" />
-      <img id="1-b" alt="example image two" src="1_normal_b.jpg" />
-    </div>
-    <script type="text/javascript">
-
-      //
-      // Example:
-      //
-
-      var
-        a = document.getElementById('1-a'),     // Original image
-        b = document.getElementById('1-b'),     // Altered image
-        demo = document.getElementById('demo'); // Container div
-
-      function difference () {
-
-        var
-          diff, canvas, context;
-
-        if (!a.complete || !b.complete) {
-
-          // Images are loaded asynchronously.
-          // Let's wait until they are ready.
-          setTimeout(difference, 10);
-
-        } else {
-
-          // Once they are ready, create a diff.
-          // This returns an ImageData object.
-          diff = imagediff.diff(a, b);
-          alert("hi");
-          alert(diff);
-
-          // Now create a canvas,
-          canvas = imagediff.createCanvas(diff.width, diff.height);
-
-          // get its context
-          context = canvas.getContext('2d');
-
-          // and finally draw the ImageData diff.
-          context.putImageData(diff, 0, 0);
-
-          // Add the canvas element to the container.
-          demo.appendChild(canvas);
-        }
-      }
-
-      difference();
-    </script>
-  </div>
-  <div id="github-ribbon">
-    <a href="http://github.com/HumbleSoftware/js-imagediff"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://humblesoftware.com/static/images/github-ribbon.png" alt="Fork me on GitHub"/></a>
-  </div>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>Hello World</title>
+        <style type='text/css'>
+            #simple_sketch {
+                height: 1000px;
+                width: 1000px;
+                border: 0.25px solid #000000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <h1 id='temp'></h1>
+        </div>
+        <canvas id="simple_sketch"></canvas>
+        <script type='text/javascript' src='js/jquery.js'></script>
+        <script type='text/javascript' src='js/hammer.js'></script>
+        <script type='text/javascript' src='js/sketch.js'></script>
+        <script type='text/javascript' src='cordova.js'></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-questions', function(data) {
+                      // alert(data);
+                });
+            });
+            $(function() {
+                $('#simple_sketch').sketch();
+            });
+            var element = document.getElementById('simple_sketch');
+            var hammertime = Hammer(element).on("gesture", function(event) {
+                $('#temp').html(event.gesture.direction);
+            });
+            </script>
+        
+    </body>
 </html>
-

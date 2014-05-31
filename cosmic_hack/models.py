@@ -22,6 +22,11 @@ class Child(models.Model):
 
 
 
+	class Meta(object):
+		verbose_name_plural = "Children";
+
+
+
 
 class NumericalQuestion(models.Model):
 	question = models.CharField(max_length = 200);
@@ -37,7 +42,6 @@ class NumericalQuestion(models.Model):
 
 	def __unicode__(self):
 		return self.question;
-
 
 
 

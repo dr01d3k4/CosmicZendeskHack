@@ -124,3 +124,7 @@ xcuserdata
 #
 # ...none. Everything is now explained.:
 *.xcuserstate
+
+
+
+.pyc

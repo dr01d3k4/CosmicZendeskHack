@@ -22,7 +22,7 @@
             }
             #question {
                 /*position: relative;*/
-                font-family: Segoe UI Light;
+                font-family: "Helvetica Neue Thin";
                 display: none;
                 font-size: 35px;
                 -webkit-touch-callout: none;
@@ -43,8 +43,12 @@
         <div id='main'>
                 <div id='question'><center>How much did you like the ward?</center></div>
         </div>
+<<<<<<< HEAD
         <div id='grass'><img src='img/grass.jpg' width='100%'/></div>
         <!--<canvas id="simple_sketch"></canvas>-->
+=======
+        <!-- <canvas id="simple_sketch"></canvas> -->
+>>>>>>> 06d4246739d29b61675c3f2431760c0c89ba755b
         <script type='text/javascript' src='js/jquery.js'></script>
         <script type='text/javascript' src='js/hammer.js'></script>
         <script type='text/javascript' src='js/sketch.js'></script>
@@ -57,10 +61,16 @@
                 $('#question').hide();
                 $('#question').css("margin-top", ($(document).height() - ($(this).height())/2) + 'px');
                 $('#question').fadeIn(1500, "linear", function() {
+<<<<<<< HEAD
                     $('#question').animate({'margin-top':'10px'}, 1000, function() {
                         $('#grass').css("bottom", '-' + ($(document).height()/2) + 'px').fadeIn();
                     });
+=======
+                    //$('#question').hide();
+                    $('#question').animate({'margin-top':'20px'});
+>>>>>>> 06d4246739d29b61675c3f2431760c0c89ba755b
                 });
+                // $('#simple_sketch').sketch();
             });
             
             
@@ -111,6 +121,7 @@
             var questionNo = 1;
             var currentGesture;
             var prevGesture;
+            // var element = document.getElementById('simple_sketch');
             Hammer(document).on("gesture", function(event) {
                 prevGesture = currentGesture;
                 currentGesture = event.gesture.direction;

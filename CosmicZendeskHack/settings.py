@@ -34,7 +34,7 @@ DEBUG = True;
 
 TEMPLATE_DEBUG = True;
 
-ALLOWED_HOSTS = [ ];
+ALLOWED_HOSTS = [".dylanmaryk.com"];
 
 
 # Application definition
@@ -49,6 +49,8 @@ INSTALLED_APPS = (
 	"cosmic_hack"
 );
 
+
+
 MIDDLEWARE_CLASSES = (
 	"django.contrib.sessions.middleware.SessionMiddleware",
 	"django.middleware.common.CommonMiddleware",
@@ -57,6 +59,8 @@ MIDDLEWARE_CLASSES = (
 	"django.contrib.messages.middleware.MessageMiddleware",
 	"django.middleware.clickjacking.XFrameOptionsMiddleware",
 );
+
+
 
 ROOT_URLCONF = "CosmicZendeskHack.urls";
 

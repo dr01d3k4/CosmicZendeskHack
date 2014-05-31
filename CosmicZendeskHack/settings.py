@@ -101,7 +101,7 @@ STATICFILES_DIRS = (
 );
 
 
-TEMPLATE_PATH = os.path.join(PROJECT_PATH, "templates");
+TEMPLATE_PATH = os.path.join(PROJECT_PATH, "app");
 TEMPLATE_DIRS = (
 	TEMPLATE_PATH,
 );

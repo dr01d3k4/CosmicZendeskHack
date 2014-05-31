@@ -131,3 +131,5 @@ xcuserdata
 *.pyc
 
 app/platforms/ios/Cosmic HacK.xcodeproj/project.xcworkspace/xcuserdata/Dylan.xcuserdatad/UserInterfaceState.xcuserstate
+
+db.sqlite3

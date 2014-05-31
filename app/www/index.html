@@ -22,7 +22,7 @@
             }
             #question {
                 /*position: relative;*/
-                font-family: Segoe UI Light;
+                font-family: "Helvetica Neue Thin";
                 display: none;
                 font-size: 35px;
             }
@@ -32,7 +32,7 @@
         <div id='main'>
                 <div id='question'><center>How much did you like the ward?</center></div>
         </div>
-        <!--<canvas id="simple_sketch"></canvas>-->
+        <canvas id="simple_sketch"></canvas>
         <script type='text/javascript' src='js/jquery.js'></script>
         <script type='text/javascript' src='js/hammer.js'></script>
         <script type='text/javascript' src='js/sketch.js'></script>
@@ -46,8 +46,9 @@
                 $('#question').css("margin-top", ($(document).height() - ($(this).height())/2) + 'px');
                 $('#question').fadeIn(1500, "linear", function() {
                     //$('#question').hide();
-                    $('#question').animate({'margin-top':'10px'});
+                    $('#question').animate({'margin-top':'20px'});
                 });
+                $('#simple_sketch').sketch();
             });
             
             
@@ -96,13 +97,13 @@
             var direction;
             var returnValue;
             var questionNo = 1;
-            Hammer(document).on("gesture", function(event) {
+            Hammer($('#simple_sketch')).on("gesture", function(event) {
                 //$('#temp').html(event.gesture.direction);
                 if (event.gesture.direction == "up" || event.gesture.direction == "down") {
                     direction = event.gesture.direction;
                  }
             });
-            Hammer(document).on("release", function(event) {
+            Hammer($('#simple_sketch')).on("release", function(event) {
                 if (direction == "up") {
                     returnValue = 1;
                 } else {

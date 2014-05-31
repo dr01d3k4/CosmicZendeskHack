@@ -44,7 +44,6 @@ class GetAllQuestions(View):
 	@method_decorator(returnHttpJson)
 	def get(self, request):
 		questionOrder = QuestionOrder.objects.all().order_by("order");
-		print(questionOrder.query);
 		questions = [ ];
 
 		for questionOrderRow in questionOrder:
@@ -59,6 +58,7 @@ class GetAllQuestions(View):
 			if (question is not None):
 				questionDictionary = question.toDictionary();
 				questionDictionary["order"] = questionOrderRow.order;
+				questionDictionary["type"] = questionOrderRow.type;
 				questions.append(questionDictionary);
 
 		return questions;

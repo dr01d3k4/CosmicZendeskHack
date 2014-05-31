@@ -13,12 +13,13 @@
                 width: 100%;
                 border: 0.25px solid #000000;
             }
+            #question {
+                
+            }
         </style>
     </head>
     <body>
-        <div class="app">
-            <h1 id='temp'></h1>
-        </div>
+        <div id='question'>How much did you like the ward?</div>
         <!--><canvas id="simple_sketch"></canvas><!-->
         <script type='text/javascript' src='js/jquery.js'></script>
         <script type='text/javascript' src='js/hammer.js'></script>
@@ -26,10 +27,38 @@
         <script type='text/javascript' src='cordova.js'></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-questions', function(data) {
+                /*$.get('http://dr01d3k4.pythonanywhere.com/cosmic_hack/get-all-questions', function(data) {
                       // alert(data);
-                });
+                });*/
             });
+            
+            function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+            // Send the token to same-origin, relative URLs only.
+            // Send the token only if the method warrants CSRF protection
+            // Using the CSRFToken value acquired earlier
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
             /*$(function() {
                 $('#simple_sketch').sketch();
             });*/
@@ -37,7 +66,7 @@
             var returnValue;
             var questionNo = 1;
             Hammer(document).on("gesture", function(event) {
-                $('#temp').html(event.gesture.direction);
+                //$('#temp').html(event.gesture.direction);
                 if (event.gesture.direction == "up" || event.gesture.direction == "down") {
                     direction = event.gesture.direction;
                  }
@@ -49,8 +78,16 @@
                     returnValue = 0;
                 }
                 alert(direction);
-                $.post("http://dr01d3k4.pythonanywhere.com/cosmic_hack/post-numerical-question-answer", {question: questionNo, answer: returnValue}, function(data) {
+                /*$.post("http://dr01d3k4.pythonanywhere.com/cosmic_hack/post-numerical-question-answer", {question: questionNo, answer: returnValue}, function(data) {
                     alert('Success, returned: ' + data);
+                });*/
+                $.ajax({
+                    type: "GET",
+                    url: "http://dr01d3k4.pythonanywhere.com/cosmic_hack/post-numerical-question-answer",
+                    data: {question: questionNo, answer: returnValue},
+                    success: function (dataCheck) {
+                        alert(dataCheck);
+                    }
                 });
             });
         </script>

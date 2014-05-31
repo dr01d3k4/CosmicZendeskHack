@@ -67,29 +67,27 @@ class GetAllQuestions(View):
 
 
 
-# @returnHttpJson
-# def postNumericalQuestionAnswer(request):
-# 	print("Hello");
-# 	# return {"result": "ok"};
-# 	return HttpResponse("Plain text", content_type = "text/plain");
-
-
-
 class PostNumericalQuestionAnswer(View):
 	@method_decorator(returnHttpJson)
-	def get(self, request, questionId, answer):
-		print("Hello!");
+	def get(self, request, questionId, answer, childId = 1):
+		# print(childId);
 		# print(request);
-		
+
+		question = None;
 		child = None;
+		try:
+			question = NumericalQuestion.objects.get(id = questionId);
+		except (Question.DoesNotExist):
+			raise Http404;
 
-		question = NumericalQuestion.objects.get(id = questionId);
-		print(question);
-		print(answer);
+		try:
+
+			child = Child.objects.get(id = childId);
+		except (Child.DoesNotExist):
+			raise Http404;
 
 
-
-		child = getAnonymousChild();
+		# child = getAnonymousChild();
 		# try:
 		# 	childId = request.POST["child"];
 		# 	try:
